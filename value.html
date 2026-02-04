@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객 가치 | 대전 시니어 구강케어센터</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=1770167749">
+    <style>
+        /* Premium Value Section */
+        .value-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(30, 64, 175, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-card {
+            padding: 55px 45px;
+            border-radius: 28px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .value-card::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+            transform: rotate(45deg);
+            transition: all 0.8s;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-card:hover::after {
+            top: -50%;
+            left: -50%;
+        }
+
+        .value-card:nth-child(1) {
+            background: linear-gradient(145deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+        }
+
+        .value-card:nth-child(2) {
+            background: linear-gradient(145deg, #14b8a6 0%, #0d9488 50%, #0f766e 100%);
+        }
+
+        .value-card:nth-child(3) {
+            background: linear-gradient(145deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+        }
+
+        .value-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 35px 80px rgba(0,0,0,0.25);
+        }
+
+        .value-card-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-card-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent);
+            z-index: -1;
+        }
+
+        .value-card i {
+            font-size: 2.8rem;
+            color: var(--white);
+        }
+
+        .value-card h3 {
+            color: var(--white);
+            font-size: 1.7rem;
+            margin-bottom: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-card p {
+            color: rgba(255,255,255,0.92);
+            font-size: 1.05rem;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-stat {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 14px 30px;
+            border-radius: 30px;
+            margin-top: 25px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .value-stat::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        /* Premium Detail Section */
+        .detail-section {
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .detail-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, transparent, rgba(30, 64, 175, 0.03));
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-card {
+            background: var(--white);
+            padding: 45px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .detail-card:hover::before {
+            opacity: 1;
+        }
+
+        .detail-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 22px;
+            font-weight: 700;
+        }
+
+        .detail-card h3 i {
+            font-size: 1.6rem;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+        }
+
+        .detail-card > p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 14px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            color: var(--dark);
+            font-size: 1.02rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .detail-list li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-list li:hover {
+            padding-left: 10px;
+            color: var(--primary);
+        }
+
+        .detail-list i {
+            color: var(--secondary);
+            margin-top: 4px;
+            font-size: 1.1rem;
+        }
+
+        /* Premium Comparison Section */
+        .comparison-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+        }
+
+        .comparison-table-wrapper {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 22px 28px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+            padding-left: 35px;
+        }
+
+        /* Dark green highlight for last column header */
+        .comparison-table th.highlight-green {
+            background: linear-gradient(135deg, #166534 0%, #14532d 100%);
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            padding-left: 35px;
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        .comparison-table tbody tr {
+            transition: all 0.3s;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: rgba(30, 64, 175, 0.02);
+        }
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Dark green highlight for last column cells */
+        .comparison-table td.highlight-green {
+            background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .comparison-table td.highlight-green .check {
+            color: #86efac !important;
+            font-weight: 700;
+        }
+
+        .comparison-table td.highlight-green .check-text {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .comparison-table .check {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .comparison-table .cross {
+            color: #ef4444;
+            font-size: 1.3rem;
+        }
+
+        .comparison-table .neutral {
+            color: #9ca3af;
+            font-size: 1.1rem;
+        }
+
+        /* Premium Testimonial Section */
+        .testimonial-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .testimonial-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .testimonial-section .section-header p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .testimonial-card p {
+            color: rgba(255,255,255,0.92);
+            font-style: italic;
+            margin-bottom: 28px;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.4rem;
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+        }
+
+        .testimonial-info {
+            color: var(--white);
+        }
+
+        .testimonial-info strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info span {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Premium CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 50%, var(--secondary) 100%);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 35px;
+            font-size: 1.15rem;
+        }
+
+        .cta-section .btn-white {
+            padding: 18px 45px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .cta-section .btn-white:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 992px) {
+            .value-grid,
+            .detail-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table-wrapper {
+                overflow-x: auto;
+            }
+
+            .comparison-table {
+                min-width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="font-size:1.3rem">대전<span>시니어</span>구강케어센터</a>
+            <ul class="nav-links">
+                <li><a href="about.html" style="font-size:13px;font-weight:600">서비스 소개</a></li>
+                <li><a href="services.html" style="font-size:13px;font-weight:600">제공 서비스</a></li>
+                <li><a href="team.html" style="font-size:13px;font-weight:600">전문 팀</a></li>
+                <li><a href="value.html" class="active" style="font-size:13px;font-weight:600">고객 가치</a></li>
+                <li><a href="roadmap.html" style="font-size:13px;font-weight:600">로드맵</a></li>
+                <li><a href="contact.html" class="nav-cta" style="font-size:13px;font-weight:600">상담 신청</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>고객 가치 제안</h1>
+            <p>단순한 치료를 넘어 '생존과 삶의 질'에 초점을 맞춥니다</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> &gt; 고객 가치
+            </div>
+        </div>
+    </div>
+
+    <!-- Value Section -->
+    <section class="value-section">
+        <div class="container">
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <i class="fas fa-lungs"></i>
+                    </div>
+                    <h3>치명적 질환 예방</h3>
+                    <p>구강 내 세균 집락을 관리함으로써 노인 사망의 주요 원인인 흡인성 폐렴 발생률을 크게 낮춥니다. 정기적 구강 케어가 생명을 지킵니다.</p>
+                    <div class="value-stat">폐렴 발생률 7배 감소</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>먹는 즐거움 회복</h3>
+                    <p>틀니의 정밀한 적합도 조절을 통해 저작 기능을 회복시킵니다. 영양 섭취가 개선되어 근감소증을 예방하고 전신 건강을 지킵니다.</p>
+                    <div class="value-stat">저작 기능 회복</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>보호자 부담 해소</h3>
+                    <p>거동이 불편한 어르신을 치과로 모시기 위해 들이던 이동 비용, 사설 구급차 이용료, 보호자의 연차 사용 등 모든 비용을 제로화합니다.</p>
+                    <div class="value-stat">이동 비용 제로</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detail Section -->
+    <section class="detail-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>상세 가치 분석</h2>
+                <p>시니어, 보호자, 시설 모두에게 제공되는 가치</p>
+            </div>
+            <div class="detail-grid">
+                <div class="detail-card">
+                    <h3><i class="fas fa-user-injured"></i> 시니어(어르신) 가치</h3>
+                    <p>거동이 불편해도 전문적인 구강 관리를 받으실 수 있습니다.</p>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-check-circle"></i> 병원 방문 없이 편안하게 진료</li>
+                        <li><i class="fas fa-check-circle"></i> 틀니 불편함 현장 즉시 해결</li>
+                        <li><i class="fas fa-check-circle"></i> 입으로 먹는 즐거움 회복</li>
+                        <li><i class="fas fa-check-circle"></i> 흡인성 폐렴 등 질병 예방</li>
+                        <li><i class="fas fa-check-circle"></i> 삶의 질과 존엄성 유지</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h3><i class="fas fa-users"></i> 보호자(가족) 가치</h3>
+                    <p>어르신 케어의 시간적, 경제적 부담을 크게 줄여드립니다.</p>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-check-circle"></i> 치과 이송 부담 해소</li>
+                        <li><i class="fas fa-check-circle"></i> 연차/휴가 사용 불필요</li>
+                        <li><i class="fas fa-check-circle"></i> 구급차/택시 비용 절감</li>
+                        <li><i class="fas fa-check-circle"></i> 디지털 리포트로 상태 확인</li>
+                        <li><i class="fas fa-check-circle"></i> 심리적 안심감 제공</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h3><i class="fas fa-building"></i> 요양시설 가치</h3>
+                    <p>입소자 건강 관리 지표를 개선하고 시설 경쟁력을 높입니다.</p>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-check-circle"></i> 입소자 구강 건강 체계 관리</li>
+                        <li><i class="fas fa-check-circle"></i> 폐렴 발생률 감소로 평가 개선</li>
+                        <li><i class="fas fa-check-circle"></i> 시설 차별화 경쟁력 확보</li>
+                        <li><i class="fas fa-check-circle"></i> 보호자 만족도 향상</li>
+                        <li><i class="fas fa-check-circle"></i> 전문 케어 아웃소싱으로 효율화</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h3><i class="fas fa-heartbeat"></i> 임상적 가치</h3>
+                    <p>과학적으로 입증된 구강 케어의 건강 효과입니다.</p>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-check-circle"></i> 구강 세균 관리로 전신 건강 개선</li>
+                        <li><i class="fas fa-check-circle"></i> 영양 섭취 개선으로 체력 유지</li>
+                        <li><i class="fas fa-check-circle"></i> 입원 기간 단축 효과</li>
+                        <li><i class="fas fa-check-circle"></i> 의료비 절감 기여</li>
+                        <li><i class="fas fa-check-circle"></i> 건강 수명 연장</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>서비스 비교</h2>
+                <p>기존 서비스와 대전 시니어 구강케어센터의 차이</p>
+            </div>
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>일반 치과 방문</th>
+                            <th>보건소 방문 서비스</th>
+                            <th class="highlight-green">대전 시니어 구강케어센터</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>이동 필요</td>
+                            <td><i class="fas fa-times cross"></i> 필요</td>
+                            <td><i class="fas fa-check check"></i> 불필요</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">불필요</span></td>
+                        </tr>
+                        <tr>
+                            <td>현장 틀니 수리</td>
+                            <td><i class="fas fa-times cross"></i> 불가</td>
+                            <td><i class="fas fa-times cross"></i> 불가</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">가능</span></td>
+                        </tr>
+                        <tr>
+                            <td>전문 의료팀</td>
+                            <td><i class="fas fa-check check"></i> 있음</td>
+                            <td><i class="fas fa-minus neutral"></i> 제한적</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">3인 1조</span></td>
+                        </tr>
+                        <tr>
+                            <td>정기 방문</td>
+                            <td><i class="fas fa-times cross"></i> 어려움</td>
+                            <td><i class="fas fa-minus neutral"></i> 비정기적</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">정기 프로그램</span></td>
+                        </tr>
+                        <tr>
+                            <td>디지털 진단</td>
+                            <td><i class="fas fa-check check"></i> 있음</td>
+                            <td><i class="fas fa-times cross"></i> 제한적</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">구강 스캐너</span></td>
+                        </tr>
+                        <tr>
+                            <td>B2B 계약</td>
+                            <td><i class="fas fa-times cross"></i> 불가</td>
+                            <td><i class="fas fa-times cross"></i> 불가</td>
+                            <td class="highlight-green"><i class="fas fa-check check"></i> <span class="check-text">시설 계약 가능</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>기대 효과</h2>
+                <p>방문 구강 케어 서비스를 통해 기대되는 변화</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"어머니를 치과에 모시고 가려면 반나절이 걸렸는데, 이제 집에서 편안하게 진료받으실 수 있게 되었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <strong>보호자 기대 효과</strong>
+                            <span>이동 부담 해소</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"틀니가 맞지 않아 음식을 제대로 못 드시던 분이 현장에서 바로 조정받고 식사를 잘 하시게 되었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <strong>요양시설 기대 효과</strong>
+                            <span>입소자 건강 개선</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"정기적인 구강 관리로 입소자분들의 폐렴 발생이 크게 줄어 시설 평가에도 긍정적인 영향을 기대합니다."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <strong>시설장 기대 효과</strong>
+                            <span>질병 예방 및 평가 개선</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>지금 바로 상담을 신청하세요</h2>
+            <p>어르신의 구강 건강을 지키는 첫 걸음, 무료 상담으로 시작하세요</p>
+            <a href="contact.html" class="btn btn-white">
+                <i class="fas fa-phone-alt"></i> 무료 상담 신청
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>대전시니어구강케어센터</h3>
+                    <p>치과의사, 치과위생사, 치과기공사로 구성된 전문 팀이 어르신의 구강 건강을 책임집니다.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fas fa-blog"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>서비스</h4>
+                    <ul>
+                        <li><a href="services.html">틀니 유지보수</a></li>
+                        <li><a href="services.html">전문 스케일링</a></li>
+                        <li><a href="services.html">불소 도포</a></li>
+                        <li><a href="services.html">구강 건강 교육</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">이용 안내</a></li>
+                        <li><a href="#">비용 안내</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>회사 정보</h4>
+                    <ul>
+                        <li><a href="about.html">서비스 소개</a></li>
+                        <li><a href="team.html">전문 팀 소개</a></li>
+                        <li><a href="roadmap.html">사업 로드맵</a></li>
+                        <li><a href="contact.html">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 대전시니어구강케어센터. All rights reserved. | 대전광역시 치기공사협회</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="contact.html" class="floating-btn" title="상담 신청">
+            <i class="fas fa-headset"></i>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

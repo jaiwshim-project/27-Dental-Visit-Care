@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대전 시니어 구강케어센터 | 방문 구강 건강 관리 서비스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=1770167749">
+    <style>
+        /* Navigation Fix */
+        .navbar .nav-links a { font-size: 13px !important; font-weight: 600 !important; }
+        .navbar .nav-cta { font-size: 13px !important; font-weight: 600 !important; }
+        .navbar .logo { font-size: 1.3rem !important; }
+
+        /* Hero Section - Premium */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(13, 148, 136, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.2) 0%, transparent 60%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--light), transparent);
+        }
+
+        /* Animated Background Shapes */
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-shape:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 100px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .hero-shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 20%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 24px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fcd34d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 36px;
+            line-height: 1.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Card - Glass Morphism */
+        .hero-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2xl), 0 0 80px rgba(30, 64, 175, 0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+
+        .hero-card h3 {
+            color: var(--gray-900);
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-card h3 i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .hero-card ul {
+            list-style: none;
+        }
+
+        .hero-card li {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+
+        .hero-card li:hover {
+            padding-left: 8px;
+            color: var(--primary);
+        }
+
+        .hero-card li:last-child {
+            border-bottom: none;
+        }
+
+        .hero-card li i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Features Section - Premium Cards */
+        .features {
+            padding: 120px 0;
+            background: var(--light);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 10% 90%, rgba(30, 64, 175, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+            position: relative;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px 28px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: var(--radius-lg);
+            background: var(--primary-gradient);
+            opacity: 0.3;
+            filter: blur(10px);
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: var(--white);
+            position: relative;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .feature-card p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Quick Info Section - Gradient Cards */
+        .quick-info {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 50px 40px;
+            border-radius: var(--radius-xl);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .info-card:nth-child(1) {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 50%, #fca5a5 100%);
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+        }
+
+        .info-card:nth-child(1)::before {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        .info-card:nth-child(2) {
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.3);
+        }
+
+        .info-card:nth-child(2)::before {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        }
+
+        .info-card:nth-child(3) {
+            background: linear-gradient(135deg, #6366f1 0%, #818cf8 50%, #a5b4fc 100%);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .info-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+        }
+
+        .info-card:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card i {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 24px;
+            position: relative;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .info-card h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .info-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        /* CTA Section - Premium */
+        .cta-section {
+            background: linear-gradient(135deg, #1e40af 0%, #0d9488 100%);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            color: var(--white);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 36px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="font-size:1.3rem">대전<span>시니어</span>구강케어센터</a>
+            <ul class="nav-links">
+                <li><a href="about.html" style="font-size:13px;font-weight:600">서비스 소개</a></li>
+                <li><a href="services.html" style="font-size:13px;font-weight:600">제공 서비스</a></li>
+                <li><a href="team.html" style="font-size:13px;font-weight:600">전문 팀</a></li>
+                <li><a href="value.html" style="font-size:13px;font-weight:600">고객 가치</a></li>
+                <li><a href="roadmap.html" style="font-size:13px;font-weight:600">로드맵</a></li>
+                <li><a href="contact.html" class="nav-cta" style="font-size:13px;font-weight:600">상담 신청</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-shapes">
+            <div class="hero-shape"></div>
+            <div class="hero-shape"></div>
+            <div class="hero-shape"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>어르신의 <span>구강 건강</span>을<br>직접 찾아가 지켜드립니다</h1>
+                <p>치과의사, 치과위생사, 치과기공사로 구성된 전문 팀이<br>요양원과 가정으로 직접 방문하여 최상의 구강 케어를 제공합니다.</p>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn btn-white">
+                        <i class="fas fa-calendar-check"></i> 무료 상담 신청
+                    </a>
+                    <a href="services.html" class="btn btn-outline-white">
+                        <i class="fas fa-info-circle"></i> 서비스 알아보기
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">232,663</div>
+                        <div class="stat-label">대전 시니어 인구</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">통합돌봄 준비도</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7배</div>
+                        <div class="stat-label">폐렴 예방 효과</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <h3><i class="fas fa-tooth"></i> 방문 구강 케어 서비스</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> 전문 3인 1조 팀 방문</li>
+                        <li><i class="fas fa-check-circle"></i> 현장 틀니 수리 가능</li>
+                        <li><i class="fas fa-check-circle"></i> 디지털 구강 스캐너 활용</li>
+                        <li><i class="fas fa-check-circle"></i> 실시간 협진 시스템</li>
+                        <li><i class="fas fa-check-circle"></i> 맞춤형 구강 관리 교육</li>
+                        <li><i class="fas fa-check-circle"></i> 정기 방문 케어 프로그램</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>왜 방문 구강 케어인가?</h2>
+                <p>거동이 불편한 어르신들의 의료 사각지대를 해소합니다</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>집에서 편안하게</h3>
+                    <p>병원 방문 없이 계신 곳에서 전문 진료를 받으실 수 있습니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>전문 의료진</h3>
+                    <p>치과의사 주도의 전문 팀이 체계적인 케어를 제공합니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>현장 즉시 해결</h3>
+                    <p>틀니 수리까지 현장에서 바로 처리합니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>질병 예방</h3>
+                    <p>정기적 관리로 흡인성 폐렴 등을 예방합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="section-header">
+                <h2>핵심 고객 가치</h2>
+                <p>단순한 치료를 넘어 '생존과 삶의 질'을 높입니다</p>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-lungs"></i>
+                    <h3>치명적 질환 예방</h3>
+                    <p>구강 내 세균 관리로 흡인성 폐렴 발생률을 최대 7배 이상 낮춥니다</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>먹는 즐거움 회복</h3>
+                    <p>틀니 적합도 조절로 저작 기능을 회복시키고 영양 섭취를 개선합니다</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>보호자 부담 해소</h3>
+                    <p>이동 비용, 시간 비용을 제로화하여 가족의 부담을 덜어드립니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>지금 바로 무료 상담을 신청하세요</h2>
+            <p>전문 상담원이 친절하게 안내해 드립니다</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-white">
+                    <i class="fas fa-phone-alt"></i> 상담 신청하기
+                </a>
+                <a href="services.html" class="btn btn-outline-white">
+                    <i class="fas fa-list"></i> 서비스 자세히 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>대전시니어구강케어센터</h3>
+                    <p>치과의사, 치과위생사, 치과기공사로 구성된 전문 팀이 어르신의 구강 건강을 책임집니다.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fas fa-blog"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>서비스</h4>
+                    <ul>
+                        <li><a href="services.html">틀니 유지보수</a></li>
+                        <li><a href="services.html">전문 스케일링</a></li>
+                        <li><a href="services.html">불소 도포</a></li>
+                        <li><a href="services.html">구강 건강 교육</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">이용 안내</a></li>
+                        <li><a href="#">비용 안내</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>회사 정보</h4>
+                    <ul>
+                        <li><a href="about.html">서비스 소개</a></li>
+                        <li><a href="team.html">전문 팀 소개</a></li>
+                        <li><a href="roadmap.html">사업 로드맵</a></li>
+                        <li><a href="contact.html">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 대전시니어구강케어센터. All rights reserved. | 대전광역시 치기공사협회</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="contact.html" class="floating-btn" title="상담 신청">
+            <i class="fas fa-headset"></i>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${index * 0.1}s`;
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .info-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
