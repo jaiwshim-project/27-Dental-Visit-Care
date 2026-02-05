@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합돌봄 뉴스 | 대전 시니어 구강케어센터</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css?v=1770167749">
+    <style>
+        /* Navigation Fix */
+        .navbar .nav-links a { font-size: 13px !important; font-weight: 600 !important; }
+        .navbar .nav-cta { font-size: 13px !important; font-weight: 600 !important; }
+        .navbar .logo { font-size: 1.15rem !important; }
+
+        /* News Section */
+        .news-section {
+            padding: 80px 0 100px;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            min-height: 60vh;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: 2px solid var(--gray-200);
+            background: var(--white);
+            color: var(--gray-600);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+            background: rgba(30, 64, 175, 0.04);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+        }
+
+        /* Featured Article */
+        .featured-article {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: var(--white);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 60px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .featured-article:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+        }
+
+        .featured-thumb {
+            height: 100%;
+            min-height: 380px;
+            background: linear-gradient(135deg, #1e40af 0%, #0d9488 60%, #fbbf24 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-thumb::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 25s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .featured-thumb-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--white);
+            padding: 40px;
+        }
+
+        .featured-thumb-content i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .featured-thumb-content .featured-badge {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.25);
+            color: #fbbf24;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .featured-body {
+            padding: 45px 45px 45px 0;
+        }
+
+        .featured-body .article-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .featured-body h2 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .featured-body .article-excerpt {
+            color: var(--gray-500);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        .featured-body .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--gray-400);
+            font-size: 0.88rem;
+        }
+
+        .featured-body .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-body .article-source {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .read-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .read-more-link:hover {
+            gap: 12px;
+            color: var(--primary-dark);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* News Card */
+        .news-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(30, 64, 175, 0.05);
+        }
+
+        .news-card-thumb {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card-thumb .thumb-gradient {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .news-card-thumb .thumb-gradient i {
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .thumb-policy { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
+        .thumb-daejeon { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
+        .thumb-oral { background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); }
+        .thumb-law { background: linear-gradient(135deg, #dc2626 0%, #f87171 100%); }
+        .thumb-local { background: linear-gradient(135deg, #ea580c 0%, #fb923c 100%); }
+        .thumb-budget { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); }
+        .thumb-system { background: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%); }
+        .thumb-senior { background: linear-gradient(135deg, #059669 0%, #34d399 100%); }
+
+        .news-card-thumb .card-category {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .news-card-body {
+            padding: 28px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card-body h3 {
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+            line-height: 1.55;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-body .card-excerpt {
+            color: var(--gray-500);
+            font-size: 0.92rem;
+            line-height: 1.75;
+            margin-bottom: 20px;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-body .card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 18px;
+            border-top: 1px solid var(--gray-100);
+            font-size: 0.82rem;
+            color: var(--gray-400);
+        }
+
+        .news-card-body .card-source {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .news-card-body .card-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-card-body .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .news-card-body .card-tag {
+            background: var(--light);
+            color: var(--gray-500);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Article Link */
+        .news-card a.card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .news-card a.card-link:hover h3 {
+            color: var(--primary);
+        }
+
+        /* Load More */
+        .load-more-wrap {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .load-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            border-radius: 30px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .load-more-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .newsletter-card {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .newsletter-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .newsletter-card .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            display: none;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: var(--gray-300);
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: var(--gray-500);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .no-results p {
+            color: var(--gray-400);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 1024px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-thumb {
+                min-height: 260px;
+            }
+
+            .featured-body {
+                padding: 35px;
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-body h2 {
+                font-size: 1.35rem;
+            }
+
+            .category-filter {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="font-size:1.15rem"><span style="background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">통합돌봄</span> 대전<span>시니어</span>구강케어센터</a>
+            <ul class="nav-links">
+                <li><a href="about.html" style="font-size:13px;font-weight:600">서비스 소개</a></li>
+                <li><a href="services.html" style="font-size:13px;font-weight:600">제공 서비스</a></li>
+                <li><a href="team.html" style="font-size:13px;font-weight:600">전문 팀</a></li>
+                <li><a href="value.html" style="font-size:13px;font-weight:600">고객 가치</a></li>
+                <li><a href="roadmap.html" style="font-size:13px;font-weight:600">로드맵</a></li>
+                <li><a href="care-policy.html" style="font-size:13px;font-weight:600">통합돌봄</a></li>
+                <li><a href="news.html" class="active" style="font-size:13px;font-weight:600">뉴스</a></li>
+                <li><a href="contact.html" class="nav-cta" style="font-size:13px;font-weight:600">상담 신청</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>통합돌봄 뉴스</h1>
+            <p>통합돌봄과 시니어 구강케어 관련 최신 뉴스와 정책 동향</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> &gt; 뉴스
+            </div>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">전체</button>
+                <button class="filter-btn" data-category="policy">정책·법률</button>
+                <button class="filter-btn" data-category="daejeon">대전</button>
+                <button class="filter-btn" data-category="oral">구강케어</button>
+                <button class="filter-btn" data-category="local">지자체</button>
+                <button class="filter-btn" data-category="budget">예산·인력</button>
+            </div>
+
+            <!-- Featured Article -->
+            <div class="featured-article" data-category="daejeon">
+                <div class="featured-thumb">
+                    <div class="featured-thumb-content">
+                        <div class="featured-badge"><i class="fas fa-crown"></i> &nbsp;주요 뉴스</div>
+                        <i class="fas fa-city" style="display:block;margin-top:24px"></i>
+                    </div>
+                </div>
+                <div class="featured-body">
+                    <span class="article-category">대전</span>
+                    <h2>대전시, '의료·요양 통합돌봄' 준비 완료… 3월부터 서비스 시작</h2>
+                    <p class="article-excerpt">대전시가 전국 최고 수준의 통합돌봄 준비도 100%를 달성하고, 2026년 3월부터 의료·요양 통합돌봄 본사업을 시작한다. 시청 내 전담조직 신설, 5개 자치구 전담인력 배치, 관련 조례 제정을 모두 완료했으며, 자치구·보건소·복지관·의료기관이 참여하는 협의회를 통해 현장 협력 체계도 구축했다.</p>
+                    <div class="article-meta">
+                        <span class="article-source">헤럴드경제</span>
+                        <span><i class="far fa-calendar-alt"></i> 2026.01.22</span>
+                    </div>
+                    <a href="https://biz.heraldcorp.com/article/10663310" target="_blank" rel="noopener" class="read-more-link">
+                        원문 기사 보기 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="news-grid">
+
+                <!-- Card 1 -->
+                <div class="news-card" data-category="policy">
+                    <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&list_no=1488556&act=view" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-policy">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <span class="card-category">정책·법률</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>통합돌봄 본사업 앞두고 지자체 준비 본격화</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#통합돌봄</span>
+                                <span class="card-tag">#본사업</span>
+                                <span class="card-tag">#지자체</span>
+                            </div>
+                            <p class="card-excerpt">보건복지부가 3월 27일 시작되는 통합돌봄 본사업을 앞두고 229개 시군구의 준비 상황을 점검한 결과, 전담조직·전담인력·사업운영 등 필수 기반이 크게 강화된 것으로 나타났다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">보건복지부</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2026.01.08</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="news-card" data-category="policy">
+                    <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156733906" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-law">
+                                <i class="fas fa-gavel"></i>
+                            </div>
+                            <span class="card-category">정책·법률</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>돌봄통합지원법 시행령·시행규칙 공포, 전국 시행 기틀 마련</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#시행령</span>
+                                <span class="card-tag">#시행규칙</span>
+                                <span class="card-tag">#법률</span>
+                            </div>
+                            <p class="card-excerpt">12월 9일 돌봄통합지원법 시행령과 시행규칙이 공포되었다. 서비스 대상, 국가 및 지방정부의 책무, 절차 등을 명확히 규정하여 모든 지자체가 표준화된 기준에 따라 사업을 수행할 수 있는 법적 토대를 마련했다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">정책브리핑</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.12.09</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="news-card" data-category="budget">
+                    <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&list_no=1488187&act=view" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-budget">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <span class="card-category">예산·인력</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>지방정부 통합돌봄 전담 인력 5,346명 보강</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#전담인력</span>
+                                <span class="card-tag">#인력보강</span>
+                            </div>
+                            <p class="card-excerpt">보건복지부가 시도 및 시군구·읍면동·보건소에 통합돌봄 전담인력 5,346명을 배치한다. 이들은 발굴·계획수립·서비스 연계·모니터링 등 돌봄통합지원법 시행을 담당하게 된다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">보건복지부</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.12.26</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="news-card" data-category="local">
+                    <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&list_no=1487324&act=view" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-local">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <span class="card-category">지자체</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>전국 229개 지자체 시범사업 참여, 본사업 전환 준비 박차</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#시범사업</span>
+                                <span class="card-tag">#229개</span>
+                                <span class="card-tag">#전국확대</span>
+                            </div>
+                            <p class="card-excerpt">제3차 시범사업 공모를 통해 98개 시군구가 추가 선정되어 전국 229개 모든 시군구가 통합돌봄 시범사업에 참여하게 되었다. 2023년 12개 시군구에서 시작된 시범사업이 전국으로 확대된 것이다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">보건복지부</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.09.22</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="news-card" data-category="oral">
+                    <a href="https://www.sedaily.com/NewsView/2GQGJRSCRI" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-oral">
+                                <i class="fas fa-tooth"></i>
+                            </div>
+                            <span class="card-category">구강케어</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>65세 이상 노인 '방문 구강관리' 서비스 시작… 전국 29개 보건소</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#방문구강관리</span>
+                                <span class="card-tag">#보건소</span>
+                                <span class="card-tag">#시범사업</span>
+                            </div>
+                            <p class="card-excerpt">보건복지부와 한국건강증진개발원이 65세 이상 재가 노인 대상 방문 구강건강관리 시범사업을 전국 29개 보건소에서 시작했다. 치과의사·치위생사가 거동 불편 어르신 가정을 직접 방문해 구강 관리 서비스를 제공한다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">서울경제</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.04.14</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="news-card" data-category="oral">
+                    <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&list_no=1485142&act=view" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-senior">
+                                <i class="fas fa-house-medical"></i>
+                            </div>
+                            <span class="card-category">구강케어</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>노인의 구강 건강을 위해 보건소 치과의료인력이 가정으로 찾아갑니다</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#방문구강</span>
+                                <span class="card-tag">#치과인력</span>
+                                <span class="card-tag">#가정방문</span>
+                            </div>
+                            <p class="card-excerpt">보건복지부가 거동이 불편한 65세 이상 노인을 대상으로 보건소 치과의료인력이 직접 가정을 방문해 구강건강 상태를 평가하고 맞춤형 구강관리를 제공하는 방문 구강건강관리 사업을 발표했다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">보건복지부</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.04.07</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="news-card" data-category="policy">
+                    <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&list_no=1487164&act=view" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-system">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <span class="card-category">정책·법률</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>의료·요양 통합돌봄 추진을 위해 부처 역량 집중</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#부처협력</span>
+                                <span class="card-tag">#통합돌봄지원관</span>
+                            </div>
+                            <p class="card-excerpt">보건복지부가 통합돌봄 전담조직인 '통합돌봄지원관'을 신설하고, 통합돌봄정책과와 통합돌봄사업과를 두어 본사업 시행 준비에 부처 역량을 집중하고 있다. 정보시스템 구축도 병행 추진 중이다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">보건복지부</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.11.18</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="news-card" data-category="daejeon">
+                    <a href="https://www.daejeon.go.kr/drh/board/boardNormalView.do?ntatcSeq=1499936622&menuSeq=6825&boardId=normal_0189" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-daejeon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span class="card-category">대전</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>대전시, 통합돌봄시대 준비 본격화</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#대전</span>
+                                <span class="card-tag">#준비완료</span>
+                                <span class="card-tag">#5개구</span>
+                            </div>
+                            <p class="card-excerpt">대전시가 2023년 서구·대덕구를 시작으로 5개 자치구 전체가 시범사업에 참여하며 통합돌봄 시대를 준비하고 있다. 읍면동 행정복지센터에서 한 번의 신청으로 의료·요양·돌봄 서비스를 통합 지원받을 수 있게 된다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">대전광역시</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.10.15</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="news-card" data-category="budget">
+                    <a href="https://www.themedical.kr/news/articleView.html?idxno=2911" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-budget">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <span class="card-category">예산·인력</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>2026년 통합돌봄 예산 914억 원… 전년 대비 12배 이상 확대</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#예산</span>
+                                <span class="card-tag">#914억</span>
+                                <span class="card-tag">#차등지원</span>
+                            </div>
+                            <p class="card-excerpt">2026년 통합돌봄 예산이 전년 71억 원에서 914억 원으로 12배 이상 확대되었다. 지역서비스 확충 620억 원은 고령화율과 의료취약지 여부를 고려해 지자체별로 4억~10억 원을 차등 지원할 예정이다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">더메디칼</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.11.25</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="news-card" data-category="local">
+                    <a href="https://biz.heraldcorp.com/article/10655749" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-local">
+                                <i class="fas fa-hospital-user"></i>
+                            </div>
+                            <span class="card-category">지자체</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>동대문구, 의료·요양 통합돌봄 본사업 시동… 5대 서비스 통합 지원</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#동대문구</span>
+                                <span class="card-tag">#본사업</span>
+                                <span class="card-tag">#통합지원</span>
+                            </div>
+                            <p class="card-excerpt">서울 동대문구가 의료·요양 통합돌봄 본사업을 개시했다. 한 번의 신청으로 의료·장기요양·돌봄·주거·여가 등 5대 영역의 서비스를 통합 지원받을 수 있으며, 거동 불편 어르신의 방문 구강관리 서비스도 포함된다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">헤럴드경제</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2026.01.15</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="news-card" data-category="daejeon">
+                    <a href="https://www.dominilbo.com/news/articleView.html?idxno=258887" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-daejeon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <span class="card-category">대전</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>대전 중구, 2026년 상반기 통합지원협의체 개최</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#대전중구</span>
+                                <span class="card-tag">#협의체</span>
+                                <span class="card-tag">#협력체계</span>
+                            </div>
+                            <p class="card-excerpt">대전 중구가 2026년 상반기 통합지원협의체를 개최하여 의료·요양·돌봄 통합지원 사업의 추진방향을 논의했다. 관내 보건소, 복지관, 의료기관 관계자가 참석해 지역 맞춤형 돌봄 모델을 협의했다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">충청도민일보</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2026.01.20</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="news-card" data-category="local">
+                    <a href="https://www.naewoeilbo.com/news/articleView.html?idxno=2281562" target="_blank" rel="noopener" class="card-link">
+                        <div class="news-card-thumb">
+                            <div class="thumb-gradient thumb-oral">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <span class="card-category">지자체</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3>동대문구, 거동불편 어르신 '구강 사각' 해소… 복지부 장관상 수상</h3>
+                            <div class="card-tags">
+                                <span class="card-tag">#구강사각</span>
+                                <span class="card-tag">#장관상</span>
+                                <span class="card-tag">#우수사례</span>
+                            </div>
+                            <p class="card-excerpt">거동이 불편한 어르신의 구강 건강 사각지대를 해소한 공로로 동대문구가 보건복지부 장관상을 수상했다. 방문 구강관리 서비스 모델이 통합돌봄의 우수 사례로 인정받은 것이다.</p>
+                            <div class="card-meta">
+                                <span class="card-source">내외일보</span>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> 2025.12.18</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults">
+                <i class="far fa-newspaper"></i>
+                <h3>해당 카테고리의 뉴스가 없습니다</h3>
+                <p>다른 카테고리를 선택해 주세요</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-card">
+                <h3>통합돌봄 시대의 파트너</h3>
+                <p>대전시니어구강케어센터는 통합돌봄 정책과 함께<br>시니어 구강 건강의 새로운 표준을 만들어갑니다</p>
+                <div class="cta-buttons">
+                    <a href="care-policy.html" class="btn btn-white">통합돌봄 정책 보기</a>
+                    <a href="contact.html" class="btn btn-outline-white">상담 신청하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><span style="color:#f59e0b">통합돌봄</span> 대전시니어구강케어센터</h3>
+                    <p>치과의사, 치과위생사, 치과기공사로 구성된 전문 팀이 어르신의 구강 건강을 책임집니다.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fas fa-blog"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>서비스 안내</h4>
+                    <ul>
+                        <li><a href="about.html">서비스 소개</a></li>
+                        <li><a href="services.html">제공 서비스</a></li>
+                        <li><a href="team.html">전문 팀</a></li>
+                        <li><a href="value.html">고객 가치</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>정책·소식</h4>
+                    <ul>
+                        <li><a href="roadmap.html">사업 로드맵</a></li>
+                        <li><a href="care-policy.html">통합돌봄 정책</a></li>
+                        <li><a href="news.html">통합돌봄 뉴스</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">이용 안내</a></li>
+                        <li><a href="#">비용 안내</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 통합돌봄 대전시니어구강케어센터. All rights reserved. | 대전광역시 치기공사협회</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="contact.html" class="floating-btn" title="상담 신청">
+            <i class="fas fa-headset"></i>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Category Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const featuredArticle = document.querySelector('.featured-article');
+        const newsCards = document.querySelectorAll('.news-card');
+        const noResults = document.getElementById('noResults');
+        const newsGrid = document.querySelector('.news-grid');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.dataset.category;
+                let visibleCount = 0;
+
+                // Featured article
+                if (category === 'all' || featuredArticle.dataset.category === category) {
+                    featuredArticle.style.display = 'grid';
+                } else {
+                    featuredArticle.style.display = 'none';
+                }
+
+                // News cards
+                newsCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // No results
+                if (visibleCount === 0 && featuredArticle.style.display === 'none') {
+                    noResults.style.display = 'block';
+                    newsGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    newsGrid.style.display = 'grid';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
